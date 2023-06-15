@@ -10,11 +10,11 @@ import {
   Overrides,
 } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
-import type { PromiseOrValue } from "../../../common";
+import type { PromiseOrValue } from "../common";
 import type {
   Controller,
   ControllerInterface,
-} from "../../../contracts/NameRegistry.sol/Controller";
+} from "../contracts/Controller";
 
 const _abi = [
   {

@@ -26,7 +26,7 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../common";
 
 export interface NameControllerInterface extends utils.Interface {
   functions: {

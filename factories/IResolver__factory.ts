@@ -7,7 +7,7 @@ import type { Provider } from "@ethersproject/providers";
 import type {
   IResolver,
   IResolverInterface,
-} from "../../../contracts/NameRegistry.sol/IResolver";
+} from "../contracts/IResolver";
 
 const _abi = [
   {

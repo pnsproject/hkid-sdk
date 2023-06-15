@@ -1,5 +1,4 @@
-import { ethers } from "hardhat";
-import { Signer, BigNumber } from "ethers";
+import { ethers, Signer, BigNumber } from "ethers";
 import { keccak_256 } from "js-sha3";
 
 import {
@@ -55,9 +54,6 @@ let oneyear = 86400 * 365;
 let tokenId = getNamehash("hongkong.hk");
 let subTokenId = getNamehash("my.hongkong.hk");
 
-import { expect } from "chai";
-import { upgrades } from "hardhat";
-
 import { 
 IResolver,
 NameController,
@@ -97,15 +93,14 @@ async function main() {
 
       let one: Signer, two: Signer;
       let oneAddr: string, twoAddr;
-
-      one = new ethers.Wallet(process.env.ONE_PRVKEY, ethers.provider)
-      two = new ethers.Wallet(process.env.TWO_PRVKEY, ethers.provider)
+      let provider = new ethers.providers.JsonRpcProvider(`https://rpc.debugchain.net`)
+      one = new ethers.Wallet(process.env.ONE_PRVKEY || "", provider)
+      two = new ethers.Wallet(process.env.TWO_PRVKEY || "", provider)
 
       oneAddr = await one.getAddress()
       twoAddr = await two.getAddress()
       console.log(oneAddr)
       console.log(twoAddr)
-      // [oneAddr, twoAddr] = await Promise.all([one, two].map((s) => s.getAddress()));
 
       let registry: any
       let controller: any
@@ -114,10 +109,10 @@ async function main() {
       ({ registry, resolver, controller } = setupNameRegistry(process.env.REGISTRY_ADDR, process.env.CONTROLLER_ADDR, one))
 
       console.log(await registry.exists(tokenId))
-      await nameRegister(controller, "hongkong5", oneAddr, oneyear)
-      await nameRegisterExtended(controller, "hongkong1", oneAddr, oneyear, 1, ["profile.email"], ["user@example.com"])
-      await nameRegisterByManager(controller, "hongkong2", oneAddr, oneyear, 1, ["profile.email"], ["user@example.com"])
-      console.log(await registry.exists(tokenId))
+      await nameRegister(controller, "hongkong8", oneAddr, oneyear)
+      // await nameRegisterExtended(controller, "hongkong1", oneAddr, oneyear, 1, ["profile.email"], ["user@example.com"])
+      // await nameRegisterByManager(controller, "hongkong2", oneAddr, oneyear, 1, ["profile.email"], ["user@example.com"])
+      // console.log(await registry.exists(tokenId))
 
       console.log("ownerOfId", await ownerOfId(registry, tokenId))
       console.log("ownerOfName", await ownerOfName(registry, "hongkong.hk"))
@@ -130,30 +125,29 @@ async function main() {
       console.log("getPrices", await getPrices(controller))
       console.log("getTokenPrice", await getTokenPrice(controller))
 
-      console.log("expire", await expire(registry, "hongkong.hk"))
-      console.log("available", await available(registry, "hongkong.hk"))
-      console.log("parent", await parent(registry, "hongkong.hk"))
-      console.log("origin", await origin(registry, "hongkong.hk"))
-      // await mintSubdomain(registry, twoAddr, "hongkong.hk", "sub0")
+      // console.log("expire", await expire(registry, "hongkong.hk"))
+      // console.log("available", await available(registry, "hongkong.hk"))
+      // console.log("parent", await parent(registry, "hongkong.hk"))
+      // console.log("origin", await origin(registry, "hongkong.hk"))
+      // // await mintSubdomain(registry, twoAddr, "hongkong.hk", "sub0")
 
-      await setName(resolver, oneAddr, "hongkong.hk")
-      console.log(await getName(resolver, oneAddr))
-      await setNftName(resolver, registry.address, tokenId, getNamehash("sub0.hongkong.hk"))
-      console.log(await getNftName(resolver, registry.address, tokenId))
+      // await setName(resolver, oneAddr, "hongkong.hk")
+      // console.log(await getName(resolver, oneAddr))
+      // await setNftName(resolver, registry.address, tokenId, getNamehash("sub0.hongkong.hk"))
+      // console.log(await getNftName(resolver, registry.address, tokenId))
 
-      await approve(registry, "hongkong1.hk", twoAddr)
-      console.log("getApproved", await getApproved(registry, "hongkong1.hk"))
+      // await approve(registry, "hongkong1.hk", twoAddr)
+      // console.log("getApproved", await getApproved(registry, "hongkong1.hk"))
 
-      await getKey(resolver, "hongkong1.hk", "profile.email")
-      await setKeysByHash(resolver, "hongkong1.hk", [sha3("profile.email")], ["newuser@example.com"])
-      await getKeys(resolver, "hongkong1.hk", ["profile.email"])
-      await getKeysByHash(resolver, "hongkong1.hk", [sha3("profile.email")])
+      // await getKey(resolver, "hongkong1.hk", "profile.email")
+      // await setKeysByHash(resolver, "hongkong1.hk", [sha3("profile.email")], ["newuser@example.com"])
+      // await getKeys(resolver, "hongkong1.hk", ["profile.email"])
+      // await getKeysByHash(resolver, "hongkong1.hk", [sha3("profile.email")])
 
-      await renew(controller, "hongkong1", oneyear)
-      await renewByManager(controller, "hongkong2", oneyear)
-      await transferName(registry, "hongkong2.hk", threeAddr)
-      await burn(registry, "hongkong1.hk")
-
+      // await renew(controller, "hongkong1", oneyear)
+      // await renewByManager(controller, "hongkong2", oneyear)
+      // await transferName(registry, "hongkong2.hk", twoAddr)
+      // await burn(registry, "hongkong1.hk")
 }
 
 main()

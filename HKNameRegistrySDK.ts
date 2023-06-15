@@ -21,10 +21,10 @@ export type TokenId = string;
 export type DomainString = string;
 export type LabelString = string;
 
-export CONTRACT_ADDRS = {
-  registry: "",
-  controller: "",
-  oracle: "",
+export const CONTRACT_ADDRS = {
+  oracle: "0x0f64B1e2B2776071121436771AC64701870F9C8c",
+  registry: "0x6248cF19321a354a970b99e811C979A18b4e6446",
+  controller: "0xc13cA34ed99CA845001798aEeDd868A30D839D7a",
 }
 
 declare abstract class Web3Provider extends AbstractWeb3Provider {

@@ -10,11 +10,11 @@ import {
   Overrides,
 } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
-import type { PromiseOrValue } from "../../../common";
+import type { PromiseOrValue } from "../common";
 import type {
   PriceOracle,
   PriceOracleInterface,
-} from "../../../contracts/NameRegistry.sol/PriceOracle";
+} from "../contracts/PriceOracle";
 
 const _abi = [
   {
